@@ -270,10 +270,11 @@ class _TimetableImportScreenState extends State<TimetableImportScreen> {
       ));
     }
     final added = widget.store.importCourses(courses, replace: _replace);
+    final message = _replace ? '已导入 $added 门课程' : '已新增 $added 门课程';
+    // 先拿到根 ScaffoldMessenger，再关闭页面，避免用已销毁的 context 弹提示。
+    final messenger = ScaffoldMessenger.of(context);
     Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(_replace ? '已导入 $added 门课程' : '已新增 $added 门课程')),
-    );
+    messenger.showSnackBar(SnackBar(content: Text(message)));
   }
 
   static String _dateText(DateTime date) =>

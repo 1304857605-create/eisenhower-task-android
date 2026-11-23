@@ -116,7 +116,7 @@
 **v1.1.0 APK 已发布：** <https://github.com/1304857605-create/quadrant-todo/releases/download/v1.1.0/app-release.apk>
 
 - 文件：`app-release.apk`，64,628,044 字节（约 61.6 MiB）
-- SHA-256：`896A04CE4AE38E54068B5294919BE08D99867C9862B206BAD76250F707BC3D6B`
+- SHA-256：`921629D6BF74D4DD10328D2E91AE3B686A8536F6D7AF3A2B8197E3AF8FCB5B6A`
 - 使用 release 证书签名（证书 SHA-256 见 [docs/SIGNING.md](docs/SIGNING.md)）
 - 权限（均可选功能使用，不读取通讯录/位置/相册/相机/日历）：`INTERNET`（联网金句）、`POST_NOTIFICATIONS`（课程提醒）、`RECEIVE_BOOT_COMPLETED`（重启恢复提醒）、`VIBRATE`
 - `minSdk 24`、`targetSdk 36`

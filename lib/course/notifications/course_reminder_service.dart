@@ -76,23 +76,21 @@ class CourseReminderService {
 
     // 1) 未来 7 天的前一天课程汇总。
     if (settings.dailySummaryEnabled) {
-      final summaryTime = _timeOfDay(settings.summaryMinutes, now);
+      final summaryTime = _timeOfDay(settings.summaryMinutes);
       for (var offset = 0; offset <= 7; offset++) {
         final tomorrow = _dateOnly(now.add(Duration(days: offset + 1)));
         final courses = store.coursesForDate(tomorrow);
         if (courses.isEmpty) continue;
         final summaryDate = _dateOnly(now.add(Duration(days: offset)));
-        var scheduled = DateTime(
+        final scheduled = DateTime(
           summaryDate.year,
           summaryDate.month,
           summaryDate.day,
           summaryTime.hour,
           summaryTime.minute,
         );
-        if (!scheduled.isAfter(now)) {
-          scheduled = scheduled.add(const Duration(days: 1));
-        }
-        if (scheduled.isAfter(now.add(const Duration(days: 8)))) continue;
+        // 今天这个汇总时间已经过了就跳过，避免把“明天课程”推到后天才提醒。
+        if (!scheduled.isAfter(now)) continue;
         final body = courses
             .take(5)
             .map((course) => '${course.name} 第${course.startSection}-${course.endSection}节')
@@ -188,7 +186,7 @@ class CourseReminderService {
   static DateTime _dateOnly(DateTime date) =>
       DateTime(date.year, date.month, date.day);
 
-  static ({int hour, int minute}) _timeOfDay(int minutes, DateTime now) {
+  static ({int hour, int minute}) _timeOfDay(int minutes) {
     return (hour: minutes ~/ 60, minute: minutes % 60);
   }
 }
