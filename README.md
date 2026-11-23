@@ -91,15 +91,21 @@
 
 ### GitHub Releases
 
-发布后会在此提供 APK 下载：<https://github.com/1304857605-create/quadrant-todo/releases>
+**v1.0.0 APK 已发布：** <https://github.com/1304857605-create/quadrant-todo/releases/download/v1.0.0/app-release.apk>
 
-1.0.0 的安装包将在正式发布时上传，当前仓库以源码为准。
+- 文件：`app-release.apk`，56,955,030 字节（约 54.3 MB）
+- SHA-256：`D48C17F5ADD5BD1C6FB1C761C9F6EADF8FC148FBD6C6978488FD52A68E66B36C`
+- 使用 release 证书签名（证书 SHA-256 见 [docs/SIGNING.md](docs/SIGNING.md)）
+- 已验证：无任何 `uses-permission`，`minSdk 24`、`targetSdk 36`
+
+Release 页面：<https://github.com/1304857605-create/quadrant-todo/releases/tag/v1.0.0>
 
 ### 手动安装 APK
 
 1. 确认手机为 Android 7.0 或更高版本；
 2. 下载 APK 后，按系统提示允许「安装未知来源应用」（侧载 APK 需要，上架商店后不需要）；
 3. 安装完成后打开即可使用，无需注册、无需联网。
+4. 下载后可用 `certutil -hashfile app-release.apk SHA256`（Windows）或 `sha256sum`（macOS/Linux）核对上面的哈希。
 
 ## 从源码构建
 
