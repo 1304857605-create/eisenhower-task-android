@@ -1,0 +1,4 @@
+﻿storePassword=你的仓库密码
+keyPassword=你的密钥密码
+keyAlias=quadrant
+storeFile=quadrant-release.jks

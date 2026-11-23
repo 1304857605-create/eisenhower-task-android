@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#F7F7F5</color>
+    <color name="launch_background">#F7F7F5</color>
+    <color name="app_background">#F6F6F3</color>
+    <color name="app_background_dark">#111215</color>
+</resources>

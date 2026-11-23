@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="四象限清单（Quadrant List）隐私政策：不收集、不上传、不共享任何个人信息，零权限、纯本地。">
+<title>隐私政策 · 四象限清单</title>
+<style>
+  :root {
+    --bg: #F7F7F5;
+    --surface: #FFFFFF;
+    --text: #1D1F24;
+    --muted: #5C606B;
+    --line: #E3E4E0;
+    --accent: #3D5A80;
+    --accent-soft: #EDF1F7;
+    --q1: #E5484D;
+    --q2: #3B82F6;
+    --q3: #E8A33D;
+    --q4: #8B8D98;
+    --radius: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121316;
+      --surface: #1A1C21;
+      --text: #E8E9EC;
+      --muted: #A2A6B0;
+      --line: #2A2D34;
+      --accent: #9CB8DE;
+      --accent-soft: #1F2633;
+      --q1: #F0666A;
+      --q2: #6BA3F7;
+      --q3: #EDB55F;
+      --q4: #9A9CA6;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 20px 64px;
+  }
+
+  header.hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .mark {
+    display: grid;
+    grid-template-columns: 14px 14px;
+    grid-template-rows: 14px 14px;
+    gap: 3px;
+    flex: 0 0 auto;
+    padding: 4px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .mark i { border-radius: 3px; }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.35;
+    margin: 0;
+    letter-spacing: .01em;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: .875rem;
+    margin: 4px 0 0;
+  }
+
+  .summary {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 28px 0;
+  }
+  .summary strong { color: var(--text); }
+  .summary p { margin: 0; }
+
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0 8px;
+    font-size: .9375rem;
+  }
+  .info-table th,
+  .info-table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .info-table th {
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+    width: 34%;
+  }
+  .info-table tr:last-child th,
+  .info-table tr:last-child td { border-bottom: 0; }
+
+  h2 {
+    font-size: 1.125rem;
+    margin: 40px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: .01em;
+  }
+
+  h3 { font-size: 1rem; margin: 22px 0 6px; }
+
+  p { margin: 10px 0; }
+
+  ul, ol { margin: 10px 0; padding-left: 1.35em; }
+  li { margin: 5px 0; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code {
+    background: var(--accent-soft);
+    color: var(--text);
+    border-radius: 5px;
+    padding: 1px 5px;
+    font-size: .875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  .note {
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: .9375rem;
+    margin: 16px 0;
+  }
+  .note p { margin: 0; }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .875rem;
+  }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 420px) {
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 1.3rem; }
+    .info-table th { width: 38%; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="hero">
+    <div class="mark" aria-hidden="true">
+      <i style="background:var(--q1)"></i>
+      <i style="background:var(--q2)"></i>
+      <i style="background:var(--q3)"></i>
+      <i style="background:var(--q4)"></i>
+    </div>
+    <div>
+      <h1>四象限清单 · 隐私政策</h1>
+      <p class="meta">Quadrant List · 生效日期 2026-11-22</p>
+    </div>
+  </header>
+
+  <div class="summary">
+    <p><strong>一句话概括：本应用不收集、不上传、不共享任何个人信息。</strong>
+    它没有网络权限，在系统层面就无法联网；没有账号体系；所有待办数据只保存在你手机的应用私有目录中。</p>
+  </div>
+
+  <table class="info-table">
+    <tr><th>应用名称</th><td>四象限清单（Quadrant List）</td></tr>
+    <tr><th>Android 包名</th><td><code>cn.sifen.quadrant</code></td></tr>
+    <tr><th>当前版本</th><td>1.0.0（versionCode 1）</td></tr>
+    <tr><th>生效日期</th><td>2026-11-22</td></tr>
+    <tr><th>开发者</th><td>四象限清单开发者（上架主体以应用商店公示为准）</td></tr>
+    <tr><th>联系方式</th><td><a href="mailto:1304857605@qq.com">1304857605@qq.com</a></td></tr>
+  </table>
+
+  <p>本政策说明「四象限清单」Android 应用如何处理你的信息。内容适用于本应用的官方构建版本；任何人基于本项目源代码自行编译、修改或分发的版本，由该分发者自行负责其隐私实践。</p>
+
+  <h2>一、我们收集哪些信息</h2>
+  <p><strong>没有。</strong>具体而言：</p>
+  <ul>
+    <li>不收集姓名、手机号、邮箱、身份证号等身份信息；</li>
+    <li>不收集设备标识符（IMEI、Android ID、OAID、MAC 地址等）；</li>
+    <li>不收集位置、通讯录、相册、麦克风、摄像头、剪贴板等任何系统数据；</li>
+    <li>不收集应用使用行为、页面停留、点击等统计埋点；</li>
+    <li>不收集崩溃日志或诊断信息，也没有接入任何第三方崩溃上报服务；</li>
+    <li>不要求注册、登录，不建立任何账号。</li>
+  </ul>
+  <p>应用中没有广告 SDK、统计 SDK、推送 SDK 或社交分享 SDK。</p>
+
+  <h2>二、你的数据存在哪里</h2>
+  <table class="info-table">
+    <tr><th>存储位置</th><td>手机本地应用私有目录中的 <code>SharedPreferences</code>（仅本应用可访问）</td></tr>
+    <tr><th>存储内容</th><td>你创建的待办：标题、备注、所属象限、截止日期、完成状态</td></tr>
+    <tr><th>是否上传</th><td>否。应用不声明 <code>INTERNET</code> 权限，无法发起网络请求</td></tr>
+    <tr><th>保存期限</th><td>直到你删除对应待办、清除应用数据或卸载应用</td></tr>
+    <tr><th>删除方式</th><td>删除单条待办；或在系统设置中清除应用数据；或直接卸载应用</td></tr>
+  </table>
+  <p>卸载应用或清除应用数据后，本地待办数据即被删除，且无法恢复。<strong>请在卸载或换机前自行导出备份。</strong></p>
+
+  <h2>三、权限说明</h2>
+  <p>本应用的 <code>AndroidManifest.xml</code> <strong>不声明任何 Android 权限</strong>，包括不声明网络权限。因此：</p>
+  <ul>
+    <li>应用无法读取你的通讯录、短信、位置、相册、摄像头、麦克风；</li>
+    <li>应用无法访问网络，也无法在后台联网；</li>
+    <li>应用无法读取其他应用的数据。</li>
+  </ul>
+  <p>你在系统「应用信息 → 权限」中看不到本应用申请的任何权限，这是设计结果，不是显示错误。</p>
+
+  <h2>四、第三方组件</h2>
+  <p>本应用除 Flutter 引擎与 Flutter 官方组件外，没有引入其他第三方依赖。</p>
+  <table class="info-table">
+    <tr><th>Flutter 引擎</th><td>Google 开源的跨平台 UI 框架，用于界面渲染与应用运行。本项目未集成 Firebase 或其他 Google 数据服务，不涉及数据传输。</td></tr>
+    <tr><th><code>material_ui</code></th><td>Flutter 官方 Material UI 包，提供 Material 3 界面组件。仅本地代码，不联网。</td></tr>
+    <tr><th><code>shared_preferences</code></th><td>Flutter 官方插件，用于在本地读写少量键值数据（待办 JSON）。仅写入本地文件，不联网。</td></tr>
+  </table>
+  <p>上述组件均不用于广告、统计或用户画像。应用首次启动时会展示隐私政策摘要，用户同意后方可继续使用。</p>
+
+  <h2>五、导出与导入</h2>
+  <ul>
+    <li><strong>导出：</strong>由你主动在设置页触发，应用将待办生成为 JSON 文本并复制到系统剪贴板。数据只进入剪贴板，不离开设备，也不会上传到任何服务器。</li>
+    <li><strong>导入：</strong>由你主动粘贴 JSON 文本，应用在本地解析并写入存储。</li>
+  </ul>
+  <div class="note">
+    <p>提示：剪贴板内容可能被设备上其他应用读取。导出后建议尽快粘贴到可信位置保存，并及时清除剪贴板内容。</p>
+  </div>
+  <p>应用中不存在云备份、云同步或账号同步功能，也不存在「自动上传」路径。</p>
+
+  <h2>六、未成年人保护</h2>
+  <p>本应用不收集任何个人信息，不设账号、不做广告、不含内购，因此对未成年人不存在针对性数据收集。未满 14 周岁的未成年人建议在监护人指导下使用，并由监护人协助完成数据备份等操作。若监护人对本政策有疑问，可通过下方邮箱联系开发者。</p>
+
+  <h2>七、本政策不涉及的情形</h2>
+  <ul>
+    <li>本应用不含广告，因此不存在广告个性化推荐与广告标识符使用；</li>
+    <li>本应用不做统计分析，因此不存在使用行为画像；</li>
+    <li>本应用不含内购与支付，因此不处理任何支付信息；</li>
+    <li>本应用不提供账号，因此不存在账号数据、注销流程与密码保管问题。</li>
+  </ul>
+
+  <h2>八、政策更新</h2>
+  <ul>
+    <li>本政策的当前版本与生效日期始终以本页面为准。</li>
+    <li>若未来版本的功能变化涉及数据处理方式，我们会在发布前更新本政策、修改生效日期，并在仓库 <code>CHANGELOG.md</code> 中记录。</li>
+    <li>本应用不收集联系方式，因此无法逐一通知用户；请以应用「关于」页与仓库中的最新版本为准。</li>
+    <li>若政策发生重大变更，会在新版本的应用内关于页与仓库 README 中提示。</li>
+  </ul>
+
+  <h2>九、联系我们</h2>
+  <p>对本政策或数据处理有任何疑问、意见或投诉，请联系：</p>
+  <ul>
+    <li>邮箱：<a href="mailto:1304857605@qq.com">1304857605@qq.com</a></li>
+    <li>仓库 Issue：<a href="https://github.com/1304857605-create/quadrant-todo/issues">github.com/1304857605-create/quadrant-todo/issues</a></li>
+  </ul>
+  <p>我们会在合理时间内回复。</p>
+
+  <h2>附：常见问题</h2>
+  <h3>应用需要联网吗？</h3>
+  <p>不需要。应用没有网络权限，首次打开也无需联网。</p>
+  <h3>会收集我的手机号或设备信息吗？</h3>
+  <p>不会。应用没有采集入口，也没有联网能力。</p>
+  <h3>卸载后数据还在吗？</h3>
+  <p>不在。数据保存在应用私有目录，卸载即删除。请在卸载前导出 JSON 备份。</p>
+  <h3>换手机怎么迁移？</h3>
+  <p>在旧手机导出 JSON（复制到剪贴板）并保存，在新手机安装后粘贴导入。应用不提供云同步。</p>
+  <h3>应用会推送提醒吗？</h3>
+  <p>不会。1.0.0 没有通知与提醒功能，也不申请通知权限。</p>
+
+  <footer>
+    <p>四象限清单 · Quadrant List</p>
+    <p>本政策最后更新：2026-11-22</p>
+    <p>项目主页：<a href="https://github.com/1304857605-create/quadrant-todo">github.com/1304857605-create/quadrant-todo</a></p>
+  </footer>
+
+</main>
+</body>
+</html>
