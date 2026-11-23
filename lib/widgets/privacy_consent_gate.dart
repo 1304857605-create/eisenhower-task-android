@@ -65,9 +65,10 @@ class _PrivacyConsentGateState extends State<PrivacyConsentGate> {
             title: const Text('隐私政策'),
             content: SingleChildScrollView(
               child: Text(
-                '「${AppInfo.name}」不收集、不上传任何个人信息，'
-                '没有广告、统计和账号。你的任务数据只保存在本机，'
+                '「${AppInfo.name}」不收集、不出售个人信息，'
+                '没有广告、统计和账号。你的任务与课表数据只保存在本机，'
                 '卸载应用即删除。\n\n'
+                '联网金句、课程提醒等能力默认关闭，只有你主动开启时才会使用对应权限。\n\n'
                 '使用前请阅读并同意《隐私政策》。',
                 style: TextStyle(
                   fontSize: 13,

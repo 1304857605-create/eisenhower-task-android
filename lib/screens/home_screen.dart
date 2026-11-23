@@ -1,8 +1,12 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
+import '../course/state/course_settings_store.dart';
+import '../course/state/course_store.dart';
 import '../models/quadrant.dart';
 import '../models/task.dart';
+import '../quotes/daily_quote_card.dart';
+import '../quotes/quote_store.dart';
 import '../state/settings_store.dart';
 import '../state/task_store.dart';
 import '../utils/date_text.dart';
@@ -18,15 +22,26 @@ class HomeScreen extends StatelessWidget {
     super.key,
     required this.store,
     required this.settings,
+    required this.courseSettings,
+    required this.courseStore,
+    required this.quoteStore,
   });
 
   final TaskStore store;
   final SettingsStore settings;
+  final CourseSettingsStore courseSettings;
+  final CourseStore courseStore;
+  final QuoteStore quoteStore;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge(<Listenable>[store, settings]),
+      listenable: Listenable.merge(<Listenable>[
+        store,
+        settings,
+        courseSettings,
+        quoteStore,
+      ]),
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         return Scaffold(
@@ -121,6 +136,11 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(12, 2, 12, 72),
               child: Column(
                 children: <Widget>[
+                  if (courseSettings.quoteVisible)
+                    DailyQuoteCard(
+                      quoteStore: quoteStore,
+                      settings: courseSettings,
+                    ),
                   if (settings.showDragTip) _DragTipBanner(settings: settings),
                   Expanded(
                     child: Column(
@@ -154,6 +174,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton.extended(
+            heroTag: 'home_add_task',
             onPressed: () => _openEditor(context),
             icon: const Icon(Icons.add_rounded, size: 22),
             label: const Text(
@@ -212,7 +233,13 @@ class HomeScreen extends StatelessWidget {
   void _openSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => SettingsScreen(store: store, settings: settings),
+        builder: (_) => SettingsScreen(
+          store: store,
+          settings: settings,
+          courseStore: courseStore,
+          courseSettings: courseSettings,
+          quoteStore: quoteStore,
+        ),
       ),
     );
   }

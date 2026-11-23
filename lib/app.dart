@@ -1,21 +1,30 @@
 import 'package:material_ui/material_ui.dart';
 
-import 'screens/home_screen.dart';
+import 'course/state/course_settings_store.dart';
+import 'course/state/course_store.dart';
+import 'quotes/quote_store.dart';
+import 'screens/root_shell.dart';
 import 'state/settings_store.dart';
 import 'state/task_store.dart';
 import 'theme/app_theme.dart';
 import 'widgets/privacy_consent_gate.dart';
 
-/// 应用根组件：主题、语言、首页。
+/// 应用根组件：主题、语言、三标签主框架。
 class QuadrantApp extends StatelessWidget {
   const QuadrantApp({
     super.key,
     required this.taskStore,
     required this.settingsStore,
+    required this.courseStore,
+    required this.courseSettings,
+    required this.quoteStore,
   });
 
   final TaskStore taskStore;
   final SettingsStore settingsStore;
+  final CourseStore courseStore;
+  final CourseSettingsStore courseSettings;
+  final QuoteStore quoteStore;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +45,13 @@ class QuadrantApp extends StatelessWidget {
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
           home: PrivacyConsentGate(
             settings: settingsStore,
-            child: HomeScreen(store: taskStore, settings: settingsStore),
+            child: RootShell(
+              taskStore: taskStore,
+              settingsStore: settingsStore,
+              courseStore: courseStore,
+              courseSettings: courseSettings,
+              quoteStore: quoteStore,
+            ),
           ),
         );
       },

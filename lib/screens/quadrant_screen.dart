@@ -145,6 +145,7 @@ class QuadrantScreen extends StatelessWidget {
                   ),
           ),
           floatingActionButton: FloatingActionButton(
+            heroTag: 'quadrant_add_${quadrant.storageKey}',
             onPressed: () => _openEditor(context),
             tooltip: '新建任务',
             shape: RoundedRectangleBorder(

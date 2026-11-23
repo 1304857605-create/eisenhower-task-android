@@ -12,10 +12,14 @@ import 'package:flutter/gestures.dart' show kLongPressTimeout;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quadrant_list/app_info.dart';
+import 'package:quadrant_list/course/screens/timetable_screen.dart';
+import 'package:quadrant_list/course/state/course_settings_store.dart';
+import 'package:quadrant_list/course/state/course_store.dart';
 import 'package:quadrant_list/data/task_repository.dart';
 import 'package:quadrant_list/models/quadrant.dart';
 import 'package:quadrant_list/screens/home_screen.dart';
 import 'package:quadrant_list/screens/settings_screen.dart';
+import 'package:quadrant_list/quotes/quote_store.dart';
 import 'package:quadrant_list/state/settings_store.dart';
 import 'package:quadrant_list/state/task_store.dart';
 import 'package:quadrant_list/theme/app_theme.dart';
@@ -82,7 +86,7 @@ void _setCanvas(WidgetTester tester) {
   addTearDown(tester.view.resetDevicePixelRatio);
 }
 
-Future<(TaskStore, SettingsStore)> _stores({
+Future<(TaskStore, SettingsStore, CourseStore, CourseSettingsStore, QuoteStore)> _stores({
   bool withSampleData = true,
 }) async {
   SharedPreferences.setMockInitialValues(<String, Object>{});
@@ -146,12 +150,33 @@ Future<(TaskStore, SettingsStore)> _stores({
 
   settings.dismissDragTip();
   settings.acceptPrivacy();
-  return (store, settings);
+
+  final courseStore = CourseStore(prefs)..load();
+  final courseSettings = CourseSettingsStore(prefs)..load();
+  final quoteStore = QuoteStore(prefs);
+  await quoteStore.load();
+  // 课表示例数据：以本周一为第 1 周。
+  final now = DateTime.now();
+  final monday = now.subtract(Duration(days: now.weekday - 1));
+  courseStore.setSemester(courseStore.semester.copyWith(
+    startDate: DateTime(monday.year, monday.month, monday.day),
+  ));
+  final weeks = List<int>.generate(16, (i) => i + 1);
+  courseStore.add(name: '高等数学', teacher: '李老师', location: '教1-201', weekday: 1, startSection: 1, endSection: 2, weeks: weeks);
+  courseStore.add(name: '大学英语', teacher: 'Amy', location: '外语楼 302', weekday: 1, startSection: 3, endSection: 4, weeks: weeks);
+  courseStore.add(name: '数据结构', teacher: '陈老师', location: '实验楼 B203', weekday: 2, startSection: 5, endSection: 6, weeks: weeks);
+  courseStore.add(name: '体育（羽毛球）', teacher: '王老师', location: '体育馆', weekday: 3, startSection: 7, endSection: 8, weeks: weeks);
+  courseStore.add(name: '线性代数', teacher: '周老师', location: '教3-105', weekday: 4, startSection: 1, endSection: 2, weeks: weeks);
+  courseStore.add(name: '程序设计实验', teacher: '陈老师', location: '机房 A', weekday: 5, startSection: 5, endSection: 8, weeks: weeks);
+  return (store, settings, courseStore, courseSettings, quoteStore);
 }
 
 Widget _frame({
   required TaskStore store,
   required SettingsStore settings,
+  required CourseStore courseStore,
+  required CourseSettingsStore courseSettings,
+  required QuoteStore quoteStore,
   required bool dark,
   Widget? home,
 }) {
@@ -168,7 +193,14 @@ Widget _frame({
       children: <Widget>[
         _FakeStatusBar(dark: dark),
         Expanded(
-          child: home ?? HomeScreen(store: store, settings: settings),
+          child: home ??
+              HomeScreen(
+                store: store,
+                settings: settings,
+                courseStore: courseStore,
+                courseSettings: courseSettings,
+                quoteStore: quoteStore,
+              ),
         ),
       ],
     ),
@@ -220,9 +252,9 @@ void main() {
 
   testWidgets('01 首页四象限', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     await tester.pumpWidget(
-      _frame(store: store, settings: settings, dark: false),
+      _frame(store: store, settings: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore, dark: false),
     );
     await tester.pumpAndSettle();
     await expectLater(
@@ -233,9 +265,9 @@ void main() {
 
   testWidgets('02 新建任务', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     await tester.pumpWidget(
-      _frame(store: store, settings: settings, dark: false),
+      _frame(store: store, settings: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore, dark: false),
     );
     await tester.pumpAndSettle();
 
@@ -256,9 +288,9 @@ void main() {
 
   testWidgets('03 拖动换象限', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     await tester.pumpWidget(
-      _frame(store: store, settings: settings, dark: false),
+      _frame(store: store, settings: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore, dark: false),
     );
     await tester.pumpAndSettle();
 
@@ -280,10 +312,10 @@ void main() {
 
   testWidgets('04 象限详情', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     settings.setShowCompleted(true);
     await tester.pumpWidget(
-      _frame(store: store, settings: settings, dark: false),
+      _frame(store: store, settings: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore, dark: false),
     );
     await tester.pumpAndSettle();
 
@@ -298,10 +330,10 @@ void main() {
 
   testWidgets('05 深色模式', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     settings.setThemeMode(ThemeMode.dark);
     await tester.pumpWidget(
-      _frame(store: store, settings: settings, dark: true),
+      _frame(store: store, settings: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore, dark: true),
     );
     await tester.pumpAndSettle();
     await expectLater(
@@ -312,19 +344,49 @@ void main() {
 
   testWidgets('06 设置页', (tester) async {
     _setCanvas(tester);
-    final (store, settings) = await _stores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
     await tester.pumpWidget(
       _frame(
         store: store,
         settings: settings,
+        courseStore: courseStore,
+        courseSettings: courseSettings,
+        quoteStore: quoteStore,
         dark: false,
-        home: SettingsScreen(store: store, settings: settings),
+        home: SettingsScreen(
+          store: store,
+          settings: settings,
+          courseStore: courseStore,
+          courseSettings: courseSettings,
+          quoteStore: quoteStore,
+        ),
       ),
     );
     await tester.pumpAndSettle();
     await expectLater(
       find.byType(MaterialApp),
       matchesGoldenFile('../../docs/screenshots/06-settings.png'),
+    );
+  });
+
+  testWidgets('07 课表周视图', (tester) async {
+    _setCanvas(tester);
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _stores();
+    await tester.pumpWidget(
+      _frame(
+        store: store,
+        settings: settings,
+        courseStore: courseStore,
+        courseSettings: courseSettings,
+        quoteStore: quoteStore,
+        dark: false,
+        home: TimetableScreen(store: courseStore, settings: courseSettings),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('../../docs/screenshots/07-timetable.png'),
     );
   });
 

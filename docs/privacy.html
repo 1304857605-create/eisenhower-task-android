@@ -1,310 +1,165 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<meta name="description" content="四象限清单（Quadrant List）隐私政策：不收集、不上传、不共享任何个人信息，零权限、纯本地。">
-<title>隐私政策 · 四象限清单</title>
-<style>
-  :root {
-    --bg: #F7F7F5;
-    --surface: #FFFFFF;
-    --text: #1D1F24;
-    --muted: #5C606B;
-    --line: #E3E4E0;
-    --accent: #3D5A80;
-    --accent-soft: #EDF1F7;
-    --q1: #E5484D;
-    --q2: #3B82F6;
-    --q3: #E8A33D;
-    --q4: #8B8D98;
-    --radius: 14px;
-  }
-
-  @media (prefers-color-scheme: dark) {
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>四象限清单 · 隐私政策</title>
+  <meta name="description" content="四象限清单隐私政策：不收集个人信息，任务和课表只保存在本地；联网金句与课程提醒为可选功能。" />
+  <style>
     :root {
-      --bg: #121316;
-      --surface: #1A1C21;
-      --text: #E8E9EC;
-      --muted: #A2A6B0;
-      --line: #2A2D34;
-      --accent: #9CB8DE;
-      --accent-soft: #1F2633;
-      --q1: #F0666A;
-      --q2: #6BA3F7;
-      --q3: #EDB55F;
-      --q4: #9A9CA6;
+      --bg: #f7f7f5;
+      --card: #ffffff;
+      --text: #1b1c1e;
+      --muted: #6b6d72;
+      --line: #e3e3de;
+      --accent: #3d5a80;
     }
-  }
-
-  * { box-sizing: border-box; }
-
-  html { -webkit-text-size-adjust: 100%; }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-      "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    overflow-wrap: break-word;
-  }
-
-  .page {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 40px 20px 64px;
-  }
-
-  header.hero {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 8px;
-  }
-
-  .mark {
-    display: grid;
-    grid-template-columns: 14px 14px;
-    grid-template-rows: 14px 14px;
-    gap: 3px;
-    flex: 0 0 auto;
-    padding: 4px;
-    border-radius: 8px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-  }
-  .mark i { border-radius: 3px; }
-
-  h1 {
-    font-size: 1.5rem;
-    line-height: 1.35;
-    margin: 0;
-    letter-spacing: .01em;
-  }
-
-  .meta {
-    color: var(--muted);
-    font-size: .875rem;
-    margin: 4px 0 0;
-  }
-
-  .summary {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    margin: 28px 0;
-  }
-  .summary strong { color: var(--text); }
-  .summary p { margin: 0; }
-
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 24px 0 8px;
-    font-size: .9375rem;
-  }
-  .info-table th,
-  .info-table td {
-    text-align: left;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
-  .info-table th {
-    color: var(--muted);
-    font-weight: 500;
-    white-space: nowrap;
-    width: 34%;
-  }
-  .info-table tr:last-child th,
-  .info-table tr:last-child td { border-bottom: 0; }
-
-  h2 {
-    font-size: 1.125rem;
-    margin: 40px 0 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--line);
-    letter-spacing: .01em;
-  }
-
-  h3 { font-size: 1rem; margin: 22px 0 6px; }
-
-  p { margin: 10px 0; }
-
-  ul, ol { margin: 10px 0; padding-left: 1.35em; }
-  li { margin: 5px 0; }
-
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  code {
-    background: var(--accent-soft);
-    color: var(--text);
-    border-radius: 5px;
-    padding: 1px 5px;
-    font-size: .875em;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
-
-  .note {
-    background: var(--accent-soft);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: .9375rem;
-    margin: 16px 0;
-  }
-  .note p { margin: 0; }
-
-  footer {
-    margin-top: 48px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: .875rem;
-  }
-  footer p { margin: 6px 0; }
-
-  @media (max-width: 420px) {
-    .page { padding: 28px 16px 48px; }
-    h1 { font-size: 1.3rem; }
-    .info-table th { width: 38%; }
-  }
-</style>
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111215;
+        --card: #1b1d21;
+        --text: #ececee;
+        --muted: #a0a2a8;
+        --line: #2c2e33;
+        --accent: #8fb0d4;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 40px 20px 64px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px 26px;
+    }
+    h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: 0.5px; }
+    .meta { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    h2 {
+      font-size: 17px;
+      margin: 28px 0 8px;
+      padding-left: 11px;
+      border-left: 3px solid var(--accent);
+    }
+    ul { padding-left: 22px; }
+    code {
+      background: rgba(127, 127, 127, 0.14);
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: 13px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px;
+      font-size: 13.5px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: rgba(127, 127, 127, 0.08); font-weight: 600; }
+    .note {
+      background: rgba(61, 90, 128, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13.5px;
+    }
+    a { color: var(--accent); }
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 26px;
+    }
+  </style>
 </head>
 <body>
-<main class="page">
+<main>
+  <article class="card">
+    <h1>四象限清单 · 隐私政策</h1>
+    <div class="meta">版本 1.1.0（versionCode 2） · 生效日期：2026-11-23</div>
 
-  <header class="hero">
-    <div class="mark" aria-hidden="true">
-      <i style="background:var(--q1)"></i>
-      <i style="background:var(--q2)"></i>
-      <i style="background:var(--q3)"></i>
-      <i style="background:var(--q4)"></i>
+    <h2>一句话概括</h2>
+    <p><strong>不收集、不出售、不共享你的待办和课表内容，没有账号体系。</strong>
+      任务、课程与设置默认只保存在手机本地。联网金句和课程提醒都是可选能力，
+      默认关闭，只在你主动开启时使用对应权限。</p>
+
+    <h2>一、我们收集哪些信息</h2>
+    <p><strong>不收集个人信息。</strong>不收集姓名、手机号、邮箱、身份证号；不收集设备标识符
+      （IMEI、Android ID、OAID、MAC 地址等）；不收集位置、通讯录、相册、麦克风、摄像头、剪贴板；
+      不收集任务、课表、备注内容；不要求注册或登录。</p>
+    <p>应用中没有广告 SDK、统计 SDK 或社交分享 SDK。</p>
+    <div class="note">
+      唯一可能产生网络请求的功能是「联网更新金句」（默认关闭）。开启后，应用会向今日诗词 API
+      （<code>https://v1.jinrishici.com/all.json</code>）请求一句古诗文，请求不包含任务、课表、账号或身份信息，
+      但对方服务器会接收到常规网络信息（如 IP 地址）。关闭后应用不会发起网络请求。
     </div>
-    <div>
-      <h1>四象限清单 · 隐私政策</h1>
-      <p class="meta">Quadrant List · 生效日期 2026-11-22</p>
-    </div>
-  </header>
 
-  <div class="summary">
-    <p><strong>一句话概括：本应用不收集、不上传、不共享任何个人信息。</strong>
-    它没有网络权限，在系统层面就无法联网；没有账号体系；所有待办数据只保存在你手机的应用私有目录中。</p>
-  </div>
+    <h2>二、你的数据存在哪里</h2>
+    <table>
+      <tr><th>存储位置</th><td>手机本地应用私有目录中的 <code>SharedPreferences</code>（仅本应用可访问）</td></tr>
+      <tr><th>存储内容</th><td>待办、课表（课程/教师/地点/节次/周次）、学期与提醒设置</td></tr>
+      <tr><th>是否上传</th><td>否。只有“联网更新金句”会请求一段古诗，不包含本地数据</td></tr>
+      <tr><th>删除方式</th><td>在应用内删除；或在系统设置中清除应用数据；或卸载应用</td></tr>
+    </table>
+    <p>卸载或清除应用数据后，本地数据即被删除，且无法恢复。请在卸载或换机前自行导出备份。</p>
 
-  <table class="info-table">
-    <tr><th>应用名称</th><td>四象限清单（Quadrant List）</td></tr>
-    <tr><th>Android 包名</th><td><code>cn.sifen.quadrant</code></td></tr>
-    <tr><th>当前版本</th><td>1.0.0（versionCode 1）</td></tr>
-    <tr><th>生效日期</th><td>2026-11-22</td></tr>
-    <tr><th>开发者</th><td>四象限清单开发者（上架主体以应用商店公示为准）</td></tr>
-    <tr><th>联系方式</th><td><a href="mailto:1304857605@qq.com">1304857605@qq.com</a></td></tr>
-  </table>
+    <h2>三、权限说明</h2>
+    <p>应用声明的 Android 权限都服务于可选功能，不读取通讯录、位置、相册、麦克风、相机或日历：</p>
+    <table>
+      <tr><th>权限</th><th>用途</th><th>是否必须</th></tr>
+      <tr><td><code>INTERNET</code></td><td>仅用于“联网更新金句”</td><td>可选</td></tr>
+      <tr><td><code>POST_NOTIFICATIONS</code></td><td>仅在开启课程提醒后申请</td><td>可选</td></tr>
+      <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>重启后恢复课程提醒</td><td>仅提醒开启时</td></tr>
+      <tr><td><code>VIBRATE</code></td><td>通知振动提醒</td><td>仅提醒开启时</td></tr>
+    </table>
+    <p>应用没有日历读写权限。“加入系统日历”只是打开系统日历的新建事件界面，由你确认保存。</p>
 
-  <p>本政策说明「四象限清单」Android 应用如何处理你的信息。内容适用于本应用的官方构建版本；任何人基于本项目源代码自行编译、修改或分发的版本，由该分发者自行负责其隐私实践。</p>
+    <h2>四、第三方组件</h2>
+    <p>应用基于 Flutter 构建，使用以下开源组件，均不含广告、统计或用户画像 SDK：</p>
+    <ul>
+      <li>Flutter 引擎、<code>material_ui</code>：界面渲染，不联网；</li>
+      <li><code>shared_preferences</code>：本地保存任务、课表与设置；</li>
+      <li><code>file_picker</code>、<code>excel</code>、<code>archive</code>、<code>html</code>：在本机解析导入文件；</li>
+      <li><code>flutter_local_notifications</code>、<code>timezone</code>、<code>flutter_timezone</code>：本地安排课程提醒；</li>
+      <li><code>http</code>：仅在开启“联网更新金句”时请求今日诗词 API。</li>
+    </ul>
+    <p>在线金句服务：今日诗词 <a href="https://www.jinrishici.com">jinrishici.com</a>。关闭开关后应用不会使用网络。</p>
 
-  <h2>一、我们收集哪些信息</h2>
-  <p><strong>没有。</strong>具体而言：</p>
-  <ul>
-    <li>不收集姓名、手机号、邮箱、身份证号等身份信息；</li>
-    <li>不收集设备标识符（IMEI、Android ID、OAID、MAC 地址等）；</li>
-    <li>不收集位置、通讯录、相册、麦克风、摄像头、剪贴板等任何系统数据；</li>
-    <li>不收集应用使用行为、页面停留、点击等统计埋点；</li>
-    <li>不收集崩溃日志或诊断信息，也没有接入任何第三方崩溃上报服务；</li>
-    <li>不要求注册、登录，不建立任何账号。</li>
-  </ul>
-  <p>应用中没有广告 SDK、统计 SDK、推送 SDK 或社交分享 SDK。</p>
+    <h2>五、文件导入、导出与日历</h2>
+    <ul>
+      <li>课表文件（ICS / Excel / Word / HTML / CSV）只在本机解析，不会上传；</li>
+      <li>任务导出/导入由你主动触发，数据只进入系统剪贴板或从剪贴板读取；</li>
+      <li>“加入系统日历”通过系统日历的新建事件界面完成，应用不读取日历内容。</li>
+    </ul>
 
-  <h2>二、你的数据存在哪里</h2>
-  <table class="info-table">
-    <tr><th>存储位置</th><td>手机本地应用私有目录中的 <code>SharedPreferences</code>（仅本应用可访问）</td></tr>
-    <tr><th>存储内容</th><td>你创建的待办：标题、备注、所属象限、截止日期、完成状态</td></tr>
-    <tr><th>是否上传</th><td>否。应用不声明 <code>INTERNET</code> 权限，无法发起网络请求</td></tr>
-    <tr><th>保存期限</th><td>直到你删除对应待办、清除应用数据或卸载应用</td></tr>
-    <tr><th>删除方式</th><td>删除单条待办；或在系统设置中清除应用数据；或直接卸载应用</td></tr>
-  </table>
-  <p>卸载应用或清除应用数据后，本地待办数据即被删除，且无法恢复。<strong>请在卸载或换机前自行导出备份。</strong></p>
+    <h2>六、课程提醒</h2>
+    <p>课程提醒默认关闭。你开启并授权通知后，应用会在本机安排前一天课程汇总（可选时间）和课前 10/5 分钟提醒。
+      提醒内容只包含课程名、时间、地点和教师，不上传服务器。你可以随时关闭，关闭后会取消所有本地通知。</p>
 
-  <h2>三、权限说明</h2>
-  <p>本应用的 <code>AndroidManifest.xml</code> <strong>不声明任何 Android 权限</strong>，包括不声明网络权限。因此：</p>
-  <ul>
-    <li>应用无法读取你的通讯录、短信、位置、相册、摄像头、麦克风；</li>
-    <li>应用无法访问网络，也无法在后台联网；</li>
-    <li>应用无法读取其他应用的数据。</li>
-  </ul>
-  <p>你在系统「应用信息 → 权限」中看不到本应用申请的任何权限，这是设计结果，不是显示错误。</p>
+    <h2>七、未成年人保护</h2>
+    <p>应用不收集任何个人信息，不设账号、不做广告、不含内购，未成年人可在监护人指导下使用。</p>
 
-  <h2>四、第三方组件</h2>
-  <p>本应用除 Flutter 引擎与 Flutter 官方组件外，没有引入其他第三方依赖。</p>
-  <table class="info-table">
-    <tr><th>Flutter 引擎</th><td>Google 开源的跨平台 UI 框架，用于界面渲染与应用运行。本项目未集成 Firebase 或其他 Google 数据服务，不涉及数据传输。</td></tr>
-    <tr><th><code>material_ui</code></th><td>Flutter 官方 Material UI 包，提供 Material 3 界面组件。仅本地代码，不联网。</td></tr>
-    <tr><th><code>shared_preferences</code></th><td>Flutter 官方插件，用于在本地读写少量键值数据（待办 JSON）。仅写入本地文件，不联网。</td></tr>
-  </table>
-  <p>上述组件均不用于广告、统计或用户画像。应用首次启动时会展示隐私政策摘要，用户同意后方可继续使用。</p>
+    <h2>八、政策更新</h2>
+    <p>若未来功能变化涉及数据处理方式，我们会在发布前更新本政策、修改生效日期，并在应用的「关于」页与仓库中同步。</p>
 
-  <h2>五、导出与导入</h2>
-  <ul>
-    <li><strong>导出：</strong>由你主动在设置页触发，应用将待办生成为 JSON 文本并复制到系统剪贴板。数据只进入剪贴板，不离开设备，也不会上传到任何服务器。</li>
-    <li><strong>导入：</strong>由你主动粘贴 JSON 文本，应用在本地解析并写入存储。</li>
-  </ul>
-  <div class="note">
-    <p>提示：剪贴板内容可能被设备上其他应用读取。导出后建议尽快粘贴到可信位置保存，并及时清除剪贴板内容。</p>
-  </div>
-  <p>应用中不存在云备份、云同步或账号同步功能，也不存在「自动上传」路径。</p>
+    <h2>九、联系我们</h2>
+    <p>邮箱：<a href="mailto:1304857605@qq.com">1304857605@qq.com</a><br />
+      仓库：<a href="https://github.com/1304857605-create/quadrant-todo">github.com/1304857605-create/quadrant-todo</a></p>
 
-  <h2>六、未成年人保护</h2>
-  <p>本应用不收集任何个人信息，不设账号、不做广告、不含内购，因此对未成年人不存在针对性数据收集。未满 14 周岁的未成年人建议在监护人指导下使用，并由监护人协助完成数据备份等操作。若监护人对本政策有疑问，可通过下方邮箱联系开发者。</p>
-
-  <h2>七、本政策不涉及的情形</h2>
-  <ul>
-    <li>本应用不含广告，因此不存在广告个性化推荐与广告标识符使用；</li>
-    <li>本应用不做统计分析，因此不存在使用行为画像；</li>
-    <li>本应用不含内购与支付，因此不处理任何支付信息；</li>
-    <li>本应用不提供账号，因此不存在账号数据、注销流程与密码保管问题。</li>
-  </ul>
-
-  <h2>八、政策更新</h2>
-  <ul>
-    <li>本政策的当前版本与生效日期始终以本页面为准。</li>
-    <li>若未来版本的功能变化涉及数据处理方式，我们会在发布前更新本政策、修改生效日期，并在仓库 <code>CHANGELOG.md</code> 中记录。</li>
-    <li>本应用不收集联系方式，因此无法逐一通知用户；请以应用「关于」页与仓库中的最新版本为准。</li>
-    <li>若政策发生重大变更，会在新版本的应用内关于页与仓库 README 中提示。</li>
-  </ul>
-
-  <h2>九、联系我们</h2>
-  <p>对本政策或数据处理有任何疑问、意见或投诉，请联系：</p>
-  <ul>
-    <li>邮箱：<a href="mailto:1304857605@qq.com">1304857605@qq.com</a></li>
-    <li>仓库 Issue：<a href="https://github.com/1304857605-create/quadrant-todo/issues">github.com/1304857605-create/quadrant-todo/issues</a></li>
-  </ul>
-  <p>我们会在合理时间内回复。</p>
-
-  <h2>附：常见问题</h2>
-  <h3>应用需要联网吗？</h3>
-  <p>不需要。应用没有网络权限，首次打开也无需联网。</p>
-  <h3>会收集我的手机号或设备信息吗？</h3>
-  <p>不会。应用没有采集入口，也没有联网能力。</p>
-  <h3>卸载后数据还在吗？</h3>
-  <p>不在。数据保存在应用私有目录，卸载即删除。请在卸载前导出 JSON 备份。</p>
-  <h3>换手机怎么迁移？</h3>
-  <p>在旧手机导出 JSON（复制到剪贴板）并保存，在新手机安装后粘贴导入。应用不提供云同步。</p>
-  <h3>应用会推送提醒吗？</h3>
-  <p>不会。1.0.0 没有通知与提醒功能，也不申请通知权限。</p>
-
-  <footer>
-    <p>四象限清单 · Quadrant List</p>
-    <p>本政策最后更新：2026-11-22</p>
-    <p>项目主页：<a href="https://github.com/1304857605-create/quadrant-todo">github.com/1304857605-create/quadrant-todo</a></p>
-  </footer>
-
+    <footer>© 2026 四象限清单 · 最后更新：2026-11-23</footer>
+  </article>
 </main>
 </body>
 </html>

@@ -2,7 +2,10 @@
 
 > **信息查询日期：2026-11-22。政策、审核口径与后台字段随时可能调整，一切以小米开放平台（dev.mi.com）、工信部及中国版权保护中心官方最新要求为准。**
 >
-> 适用对象：「四象限清单」Android 应用（applicationId `cn.sifen.quadrant`，v1.0.0 / versionCode 1，Flutter，无广告、零权限、纯本地、GPL-3.0 开源）。
+> 适用对象：「四象限清单」Android 应用（applicationId `cn.sifen.quadrant`，v1.1.0 / versionCode 2，Flutter，无广告、数据本地、权限可选、GPL-3.0 开源）。
+>
+> **2026-11-23 状态更新：v1.1.0 新增课表、课程提醒与在线金句，APK 声明了 `INTERNET`、`POST_NOTIFICATIONS`、`RECEIVE_BOOT_COMPLETED`、`VIBRATE`。因此 v1.1.0 不再适用第 3 节的“单机应用无需备案”路径，需要按联网 App 处理 APP 备案。**
+> 如果希望走单机免备案路径，请使用 v1.0.0 的零权限 APK，或后续制作的“离线 flavor”（移除 INTERNET 与在线金句）。下文单机备案流程仅适用于这些无网络版本。
 >
 > 本文基于官方公开文档整理，**不编造备案号、软著号、商店链接或审核时效**；所有时效数字均来自官方页面并附链接，未标注“官方”的耗时为经验估算，仅供参考。本文不构成法律意见。
 
@@ -34,7 +37,7 @@
 | 1 | **开发者主体必须是企业/组织，个人开发者账号不能上架** | [个人开发者升级公告](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1259)、[开发者账号注册标准](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1731) | 代码与素材已就绪；开发者主体待确定 | **最大卡点，必须先解决** |
 | 2 | **软著（或电子版权认证）必须已下证，且名称与开发者主体一致/有授权** | [应用资质 FAQ](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2251)、[应用商店上架要求](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1322) | 尚未申请（需以最终主体申请） | 需 1～3 个月（官方审查期 60 日内） |
 | 3 | **隐私政策必须有公网 URL + 应用内独立政策 + 首次启动弹窗（同意/拒绝）** | [应用商店上架要求](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1322)、[隐私政策不合规指引](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1792) | 已实现应用内政策页、首次启动同意弹窗与政策文案；公网 URL 待启用 GitHub Pages | 部署 Pages 后即可满足 |
-| 4 | **APP 备案：单机应用可“无需备案”，但必须在后台选择并上传《单机承诺函》** | [APP 备案指引](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1739)、[备案信息补充指引](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1775) | 无联网、无服务器、无域名 | 走单机豁免路径，无需买服务器/域名 |
+| 4 | **APP 备案：v1.0.0 单机可“无需备案”；v1.1.0 含 INTERNET，需按联网 App 备案** | [APP 备案指引](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1739)、[备案信息补充指引](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1775) | v1.1.0 声明网络/通知权限，不再满足单机口径 | 需提前做 APP 备案，或改用无网络版本 |
 | 5 | **商店素材规格（图标 512×512、截图 1080×1920、简介字数等）** | [应用创建操作指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1072) | 已生成 512×512 图标与 6 张 1080×1920 截图（`docs/screenshots/`） | 上传时选 5 张，确认后台尺寸提示 |
 | 6 | **更新必须使用同一签名证书** | [应用的签名](https://dev.mi.com/docs/appsmarket/operation_docs/app_signature/)、[开发者生态政策](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1321) | 已配置 release 签名（keystore 与密码不入库，需自行备份） | 首次提审前备份签名 |
 
@@ -49,7 +52,7 @@
 | 隐私政策托管 | GitHub Pages 免费 | 0～1 天（含公网可访问性测试） | 硬性 |
 | 可选：软著代理 / 电子版权认证 | 第三方收费，**价格与时效以其页面为准** | 数百至数千元不等（市场区间，非官方） | 可选 |
 
-**一句话结论：本项目当前 100% 卡在“个人开发者不能上架小米应用商店”这一条；代码、图标、截图、签名和隐私弹窗已经就绪。解决主体后，第二道门槛是软著；备案可以走单机豁免，不需要服务器和域名。**
+**一句话结论：本项目当前 100% 卡在“个人开发者不能上架小米应用商店”这一条；代码、图标、截图、签名和隐私弹窗已经就绪。v1.0.0 可走单机免备案；v1.1.0 含可选联网与通知，需按联网 App 做 APP 备案，或改用离线构建。**
 
 ---
 

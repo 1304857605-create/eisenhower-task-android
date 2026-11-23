@@ -1,16 +1,25 @@
 name: quadrant_list
-description: 无广告、零权限、纯本地的四象限待办清单。
+description: 四象限待办 × 课表 × 每日一句，无广告的全本地效率应用。
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ^3.14.0
 
 dependencies:
+  archive: ^3.6.1
+  excel: ^4.0.6
+  file_picker: ^13.4.1
   flutter:
     sdk: flutter
+  flutter_local_notifications: 19.0.0
+  flutter_timezone: ^5.1.1
+  html: ^0.15.7
+  http: ^1.6.0
   material_ui: ^1.11.1
   shared_preferences: ^2.5.0
+  timezone: 0.10.0
+  xml: ^6.6.1
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +28,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/quotes/quotes.json

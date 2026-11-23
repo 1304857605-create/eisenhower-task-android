@@ -1,20 +1,34 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quadrant_list/app.dart';
+import 'package:quadrant_list/course/state/course_settings_store.dart';
+import 'package:quadrant_list/course/state/course_store.dart';
 import 'package:quadrant_list/data/task_repository.dart';
 import 'package:quadrant_list/models/quadrant.dart';
+import 'package:quadrant_list/quotes/quote_store.dart';
 import 'package:quadrant_list/state/settings_store.dart';
 import 'package:quadrant_list/state/task_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<(TaskStore, SettingsStore)> _buildStores() async {
+Future<(
+  TaskStore,
+  SettingsStore,
+  CourseStore,
+  CourseSettingsStore,
+  QuoteStore,
+)> _buildStores({bool acceptPrivacy = true}) async {
   SharedPreferences.setMockInitialValues(<String, Object>{});
   final prefs = await SharedPreferences.getInstance();
+  final settings = SettingsStore(prefs)..load();
+  if (acceptPrivacy) settings.acceptPrivacy();
+  final quoteStore = QuoteStore(prefs);
+  await quoteStore.load();
   return (
     TaskStore(TaskRepository(prefs))..load(),
-    SettingsStore(prefs)
-      ..load()
-      ..acceptPrivacy(),
+    settings,
+    CourseStore(prefs)..load(),
+    CourseSettingsStore(prefs)..load(),
+    quoteStore,
   );
 }
 
@@ -27,9 +41,9 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    final (store, settings) = await _buildStores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _buildStores();
     await tester.pumpWidget(
-      QuadrantApp(taskStore: store, settingsStore: settings),
+      QuadrantApp(taskStore: store, settingsStore: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore),
     );
     await tester.pumpAndSettle();
 
@@ -58,14 +72,14 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    final (store, settings) = await _buildStores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _buildStores();
     store.add(
       title: '准备季度复盘',
       quadrant: Quadrant.importantNotUrgent,
     );
 
     await tester.pumpWidget(
-      QuadrantApp(taskStore: store, settingsStore: settings),
+      QuadrantApp(taskStore: store, settingsStore: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore),
     );
     await tester.pumpAndSettle();
 
@@ -97,13 +111,17 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    SharedPreferences.setMockInitialValues(<String, Object>{});
-    final prefs = await SharedPreferences.getInstance();
-    final store = TaskStore(TaskRepository(prefs))..load();
-    final settings = SettingsStore(prefs)..load();
+    final (store, settings, courseStore, courseSettings, quoteStore) =
+        await _buildStores(acceptPrivacy: false);
 
     await tester.pumpWidget(
-      QuadrantApp(taskStore: store, settingsStore: settings),
+      QuadrantApp(
+        taskStore: store,
+        settingsStore: settings,
+        courseStore: courseStore,
+        courseSettings: courseSettings,
+        quoteStore: quoteStore,
+      ),
     );
     await tester.pumpAndSettle();
 
@@ -124,9 +142,9 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    final (store, settings) = await _buildStores();
+    final (store, settings, courseStore, courseSettings, quoteStore) = await _buildStores();
     await tester.pumpWidget(
-      QuadrantApp(taskStore: store, settingsStore: settings),
+      QuadrantApp(taskStore: store, settingsStore: settings, courseStore: courseStore, courseSettings: courseSettings, quoteStore: quoteStore),
     );
     await tester.pumpAndSettle();
 

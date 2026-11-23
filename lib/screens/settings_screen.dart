@@ -2,26 +2,44 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 
 import '../app_info.dart';
+import '../course/notifications/course_reminder_service.dart';
+import '../course/screens/semester_settings_sheet.dart';
+import '../course/screens/timetable_import_screen.dart';
+import '../course/state/course_settings_store.dart';
+import '../course/state/course_store.dart';
+import '../quotes/quote_store.dart';
 import '../state/settings_store.dart';
 import '../state/task_store.dart';
 import 'about_screen.dart';
 import 'privacy_screen.dart';
 
-/// 设置页：主题、显示、数据管理、关于。
+/// 设置页：外观、课表提醒、每日一句、数据管理、关于。
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
     super.key,
     required this.store,
     required this.settings,
+    required this.courseStore,
+    required this.courseSettings,
+    required this.quoteStore,
   });
 
   final TaskStore store;
   final SettingsStore settings;
+  final CourseStore courseStore;
+  final CourseSettingsStore courseSettings;
+  final QuoteStore quoteStore;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge(<Listenable>[store, settings]),
+      listenable: Listenable.merge(<Listenable>[
+        store,
+        settings,
+        courseStore,
+        courseSettings,
+        quoteStore,
+      ]),
       builder: (context, _) {
         final scheme = Theme.of(context).colorScheme;
         return Scaffold(
@@ -147,6 +165,126 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               _SettingsSection(
+                title: '课表',
+                children: <Widget>[
+                  _SettingsTile(
+                    icon: Icons.upload_file_rounded,
+                    title: '导入课表',
+                    subtitle: 'ICS / Excel / Word / PDF / HTML，仅在本机解析',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => TimetableImportScreen(store: courseStore),
+                      ),
+                    ),
+                  ),
+                  const Divider(height: 1, indent: 48),
+                  _SettingsTile(
+                    icon: Icons.date_range_outlined,
+                    title: '学期设置',
+                    subtitle: '第 1 周 ${courseStore.semester.startDate.month}月'
+                        '${courseStore.semester.startDate.day}日 · 共 ${courseStore.semester.totalWeeks} 周',
+                    onTap: () => showSemesterSettings(context, courseStore),
+                  ),
+                  const Divider(height: 1, indent: 48),
+                  SwitchListTile(
+                    value: courseSettings.remindersEnabled,
+                    onChanged: (value) => _setReminders(context, value),
+                    title: Text(
+                      '课程提醒',
+                      style: TextStyle(fontSize: 13.5, color: scheme.onSurface),
+                    ),
+                    subtitle: Text(
+                      '前一天汇总明天课程，课前 10/5 分钟提醒',
+                      style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+                    ),
+                    secondary: Icon(
+                      Icons.notifications_none_rounded,
+                      size: 20,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                    dense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                  ),
+                  if (courseSettings.remindersEnabled) ...<Widget>[
+                    const Divider(height: 1, indent: 48),
+                    SwitchListTile(
+                      value: courseSettings.dailySummaryEnabled,
+                      onChanged: (value) {
+                        courseSettings.setDailySummaryEnabled(value);
+                        _syncReminders();
+                      },
+                      title: Text('前一天课程汇总', style: TextStyle(fontSize: 13, color: scheme.onSurface)),
+                      subtitle: Text(
+                        '每天 ${courseSettings.summaryTimeLabel} 提醒第二天的课程',
+                        style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+                      ),
+                      dense: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                    ),
+                    const Divider(height: 1, indent: 48),
+                    _SettingsTile(
+                      icon: Icons.schedule_rounded,
+                      title: '汇总提醒时间',
+                      subtitle: courseSettings.summaryTimeLabel,
+                      onTap: () => _pickSummaryTime(context),
+                    ),
+                    SwitchListTile(
+                      value: courseSettings.preClass10,
+                      onChanged: (value) {
+                        courseSettings.setPreClass10(value);
+                        _syncReminders();
+                      },
+                      title: Text('课前 10 分钟提醒', style: TextStyle(fontSize: 13, color: scheme.onSurface)),
+                      dense: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                    ),
+                    SwitchListTile(
+                      value: courseSettings.preClass5,
+                      onChanged: (value) {
+                        courseSettings.setPreClass5(value);
+                        _syncReminders();
+                      },
+                      title: Text('课前 5 分钟提醒', style: TextStyle(fontSize: 13, color: scheme.onSurface)),
+                      dense: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                    ),
+                  ],
+                ],
+              ),
+              _SettingsSection(
+                title: '每日一句',
+                children: <Widget>[
+                  SwitchListTile(
+                    value: courseSettings.quoteVisible,
+                    onChanged: courseSettings.setQuoteVisible,
+                    title: Text('在首页显示每日一句', style: TextStyle(fontSize: 13.5, color: scheme.onSurface)),
+                    subtitle: Text('内置 ${quoteStore.localQuotes.length} 条公版古诗文', style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant)),
+                    secondary: Icon(Icons.format_quote_rounded, size: 20, color: scheme.onSurfaceVariant),
+                    dense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                  ),
+                  const Divider(height: 1, indent: 48),
+                  SwitchListTile(
+                    value: courseSettings.quoteOnlineEnabled,
+                    onChanged: (value) {
+                      courseSettings.setQuoteOnlineEnabled(value);
+                      if (value) {
+                        quoteStore.refreshOnline();
+                        _toast(context, '已开启联网更新，需要网络权限；内容来自今日诗词 API');
+                      }
+                    },
+                    title: Text('联网更新金句', style: TextStyle(fontSize: 13.5, color: scheme.onSurface)),
+                    subtitle: Text(
+                      '开启后每天从今日诗词 API 取一句，失败时自动用内置内容',
+                      style: TextStyle(fontSize: 10.5, color: scheme.onSurfaceVariant),
+                    ),
+                    secondary: Icon(Icons.wifi_rounded, size: 20, color: scheme.onSurfaceVariant),
+                    dense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 14),
+                  ),
+                ],
+              ),
+              _SettingsSection(
                 title: '关于',
                 children: <Widget>[
                   _SettingsTile(
@@ -265,6 +403,43 @@ class SettingsScreen extends StatelessWidget {
       if (!context.mounted) return;
       _toast(context, '导入失败：请检查 JSON 格式');
     }
+  }
+
+  Future<void> _setReminders(BuildContext context, bool value) async {
+    if (!value) {
+      courseSettings.setRemindersEnabled(false);
+      _syncReminders();
+      return;
+    }
+    final granted = await CourseReminderService.instance.requestPermission();
+    courseSettings.setRemindersEnabled(granted);
+    _syncReminders();
+    if (!context.mounted) return;
+    _toast(
+      context,
+      granted ? '课程提醒已开启' : '未获得通知权限，请到系统设置中允许通知',
+    );
+  }
+
+  void _syncReminders() {
+    CourseReminderService.instance.sync(courseStore, courseSettings);
+  }
+
+  Future<void> _pickSummaryTime(BuildContext context) async {
+    final current = TimeOfDay(
+      hour: courseSettings.summaryMinutes ~/ 60,
+      minute: courseSettings.summaryMinutes % 60,
+    );
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: current,
+      helpText: '选择每日汇总提醒时间',
+      cancelText: '取消',
+      confirmText: '确定',
+    );
+    if (picked == null) return;
+    courseSettings.setSummaryMinutes(picked.hour * 60 + picked.minute);
+    _syncReminders();
   }
 
   Future<void> _clearCompleted(BuildContext context) async {

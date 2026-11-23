@@ -47,7 +47,8 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 26),
           Text(
             '把待办按「重要」和「紧急」分成四格，先做该做的，'
-            '放下可以放下的。没有广告、没有账号、不联网，打开就能用。',
+            '放下可以放下的。没有广告、没有账号，任务与课表数据默认只在本机。'
+            '联网金句和课程提醒都是可选功能。',
             style: TextStyle(
               fontSize: 13,
               height: 1.75,
@@ -78,6 +79,18 @@ class AboutScreen extends StatelessWidget {
             color: Quadrant.notUrgentNotImportant.color,
             title: '数据在你手里',
             subtitle: '只保存在本机，支持 JSON 导出与导入',
+          ),
+          _FeatureRow(
+            icon: Icons.calendar_month_outlined,
+            color: const Color(0xFF5B8DEF),
+            title: '课表与提醒',
+            subtitle: '导入 ICS / Excel / Word / HTML，可选前一天与课前提醒',
+          ),
+          _FeatureRow(
+            icon: Icons.format_quote_rounded,
+            color: const Color(0xFF8E7CC3),
+            title: '每日一句',
+            subtitle: '304 条公版古诗文，可选联网更新，随时可关',
           ),
           const SizedBox(height: 18),
           Material(

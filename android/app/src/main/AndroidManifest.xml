@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!--
       AndroidX Core 会自动合并一个签名级内部权限（DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION）。
-      本应用没有动态广播接收器，不需要该权限；移除后安装包保持真正的“零权限”。
+      本应用没有动态广播接收器，不需要该权限；移除后避免出现在权限列表里。
     -->
     <permission
         android:name="cn.sifen.quadrant.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -10,6 +10,12 @@
     <uses-permission
         android:name="cn.sifen.quadrant.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         tools:node="remove" />
+
+    <!-- 联网仅用于可选的每日一句在线更新；课程提醒需要通知权限，必须由用户主动开启。 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:label="@string/app_name"
@@ -45,6 +51,20 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- flutter_local_notifications：投递定时通知 + 重启后恢复排期 -->
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
