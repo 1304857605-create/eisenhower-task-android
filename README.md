@@ -10,7 +10,7 @@
 
 「四象限清单」是一款 Android 效率应用：首页是 2×2 的四象限待办矩阵，另外提供课表与每日一句。**不用登录，任务和课表默认只保存在本机**；联网金句与课程提醒都是可选能力，默认关闭。
 
-- 仓库：<https://github.com/1304857605-create/quadrant-todo>
+- 仓库：<https://github.com/1304857605-create/eisenhower-task-android>
 - 当前版本：`1.1.0`（versionCode 2）
 - 平台：Android 7.0 及以上（minSdk 24，targetSdk 36）
 - 协议：GPL-3.0
@@ -113,7 +113,7 @@
 
 ### GitHub Releases
 
-**v1.1.0 APK 已发布：** <https://github.com/1304857605-create/quadrant-todo/releases/download/v1.1.0/app-release.apk>
+**v1.1.0 APK 已发布：** <https://github.com/1304857605-create/eisenhower-task-android/releases/download/v1.1.0/app-release.apk>
 
 - 文件：`app-release.apk`，64,628,044 字节（约 61.6 MiB）
 - SHA-256：`921629D6BF74D4DD10328D2E91AE3B686A8536F6D7AF3A2B8197E3AF8FCB5B6A`
@@ -121,7 +121,7 @@
 - 权限（均可选功能使用，不读取通讯录/位置/相册/相机/日历）：`INTERNET`（联网金句）、`POST_NOTIFICATIONS`（课程提醒）、`RECEIVE_BOOT_COMPLETED`（重启恢复提醒）、`VIBRATE`
 - `minSdk 24`、`targetSdk 36`
 
-Release 页面：<https://github.com/1304857605-create/quadrant-todo/releases/tag/v1.1.0>
+Release 页面：<https://github.com/1304857605-create/eisenhower-task-android/releases/tag/v1.1.0>
 
 > 1.0.0 的纯离线零权限版本仍保留在 Releases，可在需要“完全无网络权限”时使用。
 
@@ -159,7 +159,7 @@ Release 页面：<https://github.com/1304857605-create/quadrant-todo/releases/ta
 
 ```bash
 # 1. 获取代码
-git clone https://github.com/1304857605-create/quadrant-todo.git
+git clone https://github.com/1304857605-create/eisenhower-task-android.git
 cd quadrant-todo
 
 # 2. 确认工具链（需输出 Flutter 3.50.1 • Dart 3.14）
@@ -216,7 +216,7 @@ flutter build apk --debug
 
 完整条款见 [PRIVACY.md](PRIVACY.md)（Markdown 版）与 [docs/privacy.html](docs/privacy.html)（可托管到 GitHub Pages 的网页版，用于商店隐私政策链接）。
 
-> 启用 GitHub Pages 时请选择 **main 分支 + 根目录 `/ (root)`**，隐私政策地址为 `https://1304857605-create.github.io/quadrant-todo/docs/privacy.html`；该地址已写入应用内「关于 → 隐私政策」。
+> 启用 GitHub Pages 时请选择 **main 分支 + 根目录 `/ (root)`**，隐私政策地址为 `https://1304857605-create.github.io/eisenhower-task-android/docs/privacy.html`；该地址已写入应用内「关于 → 隐私政策」。
 
 ## 目录结构
 
@@ -287,7 +287,7 @@ quadrant-todo/
 | iOS / 桌面端 | 暂不考虑（当前仅 Android） |
 | 账号体系、内购、广告、统计埋点 | 不做 |
 
-有需求或不同看法，欢迎开 Issue 讨论：<https://github.com/1304857605-create/quadrant-todo/issues>
+有需求或不同看法，欢迎开 Issue 讨论：<https://github.com/1304857605-create/eisenhower-task-android/issues>
 
 ## 参与贡献
 
@@ -304,8 +304,8 @@ quadrant-todo/
 ## 联系方式
 
 - 邮箱：<1304857605@qq.com>
-- Issue：<https://github.com/1304857605-create/quadrant-todo/issues>
-- 仓库：<https://github.com/1304857605-create/quadrant-todo>
+- Issue：<https://github.com/1304857605-create/eisenhower-task-android/issues>
+- 仓库：<https://github.com/1304857605-create/eisenhower-task-android>
 
 ## English Summary
 
