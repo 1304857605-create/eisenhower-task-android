@@ -160,7 +160,7 @@ Release 页面：<https://github.com/1304857605-create/eisenhower-task-android/r
 ```bash
 # 1. 获取代码
 git clone https://github.com/1304857605-create/eisenhower-task-android.git
-cd quadrant-todo
+cd eisenhower-task-android
 
 # 2. 确认工具链（需输出 Flutter 3.50.1 • Dart 3.14）
 flutter --version
@@ -223,7 +223,7 @@ flutter build apk --debug
 以下为仓库的约定布局，实际文件以仓库内容为准：
 
 ```text
-quadrant-todo/
+eisenhower-task-android/
 ├── android/                  # Android 工程，applicationId: cn.sifen.quadrant
 ├── lib/                      # Dart 源码
 │   ├── course/               # 课表：模型、导入解析、状态、UI、通知、日历桥
